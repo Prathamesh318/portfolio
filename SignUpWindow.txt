@@ -1,0 +1,53 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def authenticate():
+    username = username_entry.get()
+    password = password_entry.get()
+    user_type = user_type_var.get()
+    remember_me = remember_var.get()
+    
+    # Check if the username and password are valid (for demonstration purposes, use "admin" and "password" as Admin credentials, and "user" and "password" as User credentials)
+    if (user_type == "Admin" and username == "admin" and password == "password") or (user_type == "User" and username == "user" and password == "password"):
+        if remember_me:
+            messagebox.showinfo("Login Successful", f"Welcome, {user_type} {username}! (Remember Me enabled)")
+        else:
+            messagebox.showinfo("Login Successful", f"Welcome, {user_type} {username}!")
+    else:
+        messagebox.showerror("Login Failed", "Invalid username or password. Please try again.")
+
+# Create the main window
+root = tk.Tk()
+root.title("Login")
+
+# Create labels and entry widgets for username and password
+username_label = tk.Label(root, text="Username:")
+username_label.pack()
+username_entry = tk.Entry(root)
+username_entry.pack()
+
+password_label = tk.Label(root, text="Password:")
+password_label.pack()
+password_entry = tk.Entry(root, show="*")  # Use show="*" to display password as asterisks
+password_entry.pack()
+
+# Create radio buttons for user type selection
+user_type_label = tk.Label(root, text="Select User Type:")
+user_type_label.pack()
+user_type_var = tk.StringVar()
+admin_radio = tk.Radiobutton(root, text="Student", variable=user_type_var, value="Admin")
+admin_radio.pack()
+user_radio = tk.Radiobutton(root, text="Teacher", variable=user_type_var, value="User")
+user_radio.pack()
+
+# Create a checkbox for "Remember Me" option
+remember_var = tk.BooleanVar()
+remember_checkbox = tk.Checkbutton(root, text="Remember Me", variable=remember_var)
+remember_checkbox.pack()
+
+# Create a login button
+login_button = tk.Button(root, text="Sign Up", command=authenticate)
+login_button.pack()
+
+# Run the tkinter main loop
+root.mainloop()

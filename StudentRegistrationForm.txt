@@ -1,0 +1,64 @@
+import tkinter as tk
+
+def submit_registration():
+    name = name_entry.get()
+    age = age_entry.get()
+    gender = gender_var.get()
+    courses_selected = [course for course, var in courses_var.items() if var.get() == 1]
+    country = country_listbox.get(tk.ACTIVE)
+    registration_message = f"Registration Details:\nName: {name}\nAge: {age}\nGender: {gender}\n"\
+                           f"Selected Courses: {', '.join(courses_selected)}\nCountry: {country}"
+    registration_label.config(text=registration_message)
+
+# Create the main window
+root = tk.Tk()
+root.title("Student Registration Form")
+
+# Create labels and text entries for name and age
+name_label = tk.Label(root, text="Name:")
+name_label.pack()
+name_entry = tk.Entry(root)
+name_entry.pack()
+
+age_label = tk.Label(root, text="Age:")
+age_label.pack()
+age_entry = tk.Entry(root)
+age_entry.pack()
+
+# Create label and radio buttons for gender selection
+gender_label = tk.Label(root, text="Gender:")
+gender_label.pack()
+gender_var = tk.StringVar()
+male_radio = tk.Radiobutton(root, text="Male", variable=gender_var, value="Male")
+male_radio.pack()
+female_radio = tk.Radiobutton(root, text="Female", variable=gender_var, value="Female")
+female_radio.pack()
+
+# Create label and check buttons for course selection
+courses_label = tk.Label(root, text="Select Courses:")
+courses_label.pack()
+courses = ["Math", "Science", "History", "English"]
+courses_var = {course: tk.IntVar() for course in courses}
+for course in courses:
+    check_button = tk.Checkbutton(root, text=course, variable=courses_var[course])
+    check_button.pack()
+
+# Create label and list box for country selection
+country_label = tk.Label(root, text="Select Country:")
+country_label.pack()
+countries = ["USA", "Canada", "UK", "Australia", "India"]
+country_listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=len(countries))
+for country in countries:
+    country_listbox.insert(tk.END, country)
+country_listbox.pack()
+
+# Create button to submit registration
+submit_button = tk.Button(root, text="Submit Registration", command=submit_registration)
+submit_button.pack()
+
+# Create label to display registration details
+registration_label = tk.Label(root, text="")
+registration_label.pack()
+
+# Run the tkinter main loop
+root.mainloop()
